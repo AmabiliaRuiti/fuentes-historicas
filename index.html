@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fuentes en el aula</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap">
+<style>
+/* Layout: una columna de lectura ancha para proyectar; barra de pestañas fija arriba; cada pantalla es una hoja de legajo. */
+:root{
+  --bg:#E9EDEA;        /* cartulina gris verdosa de carpeta de archivo */
+  --sheet:#FBFCFA;     /* hoja */
+  --ink:#16222B;       /* tinta azul negra */
+  --muted:#50606A;
+  --line:#C5CFCB;
+  --pen:#1B4B8F;       /* azul de lapicera: enlaces y acciones */
+  --pen-ink:#FFFFFF;
+  --mark:#FFE36E;      /* resaltador: glosario y foco */
+  --mark-ink:#16222B;
+  --tint:#DCE6F3;      /* fondo suave de recuadros */
+  --warn:#8A4B00;
+  --warn-bg:#FBEBD0;
+  --display:"Bricolage Grotesque","Trebuchet MS",Verdana,sans-serif;
+  --body:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;
+  --source:"Newsreader",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10181D; --sheet:#182329; --ink:#E8EEF0; --muted:#A3B2BA; --line:#34444D;
+    --pen:#8DB8F2; --pen-ink:#0C1A2B; --mark:#E8C93A; --mark-ink:#14202A;
+    --tint:#1F303F; --warn:#F2C078; --warn-bg:#3A2C14; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10181D; --sheet:#182329; --ink:#E8EEF0; --muted:#A3B2BA; --line:#34444D;
+  --pen:#8DB8F2; --pen-ink:#0C1A2B; --mark:#E8C93A; --mark-ink:#14202A;
+  --tint:#1F303F; --warn:#F2C078; --warn-bg:#3A2C14; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.125rem;line-height:1.6;margin:0}
+a{color:var(--pen);text-underline-offset:.18em}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px;border-radius:4px}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-in{max-width:60rem;margin:0 auto;padding:.6rem 1rem .5rem}
+.brand{font-family:var(--display);font-weight:700;font-size:1rem;margin:0 0 .45rem;letter-spacing:.01em}
+.brand span{color:var(--muted);font-weight:500}
+.tabs{display:flex;flex-wrap:nowrap;gap:.3rem}
+.screen:focus{outline:none}
+.tab{flex:none;font:inherit;font-size:.9rem;padding:.3rem .65rem;border:1px solid var(--line);border-radius:999px;background:var(--sheet);color:var(--ink);cursor:pointer;white-space:nowrap}
+.tab b{font-family:var(--display);margin-right:.3rem;color:var(--pen)}
+.tab[aria-selected="true"]{background:var(--pen);border-color:var(--pen);color:var(--pen-ink)}
+.tab[aria-selected="true"] b{color:var(--pen-ink)}
+@media (max-width:58rem){.tabs{flex-wrap:wrap}.tab{padding:.3rem .55rem}.tab .tl{display:none}.tab[aria-selected="true"] .tl{display:inline}.tab b{margin-right:0}.tab[aria-selected="true"] b{margin-right:.3rem}.brand span{display:none}}
+@media (max-width:26rem){.tabs{gap:.2rem}.tab{padding:.25rem .42rem;font-size:.85rem}.brand{font-size:.9rem}}
+
+main{max-width:60rem;margin:0 auto;padding-inline:1rem;padding-block:1.25rem 3rem}
+.screen{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:clamp(1.1rem,3.5vw,2.5rem);display:flex;flex-direction:column;gap:1rem;min-width:0}
+.screen > *{margin:0;max-width:46rem}
+.screen > .wide{max-width:none}
+.folio{font-family:var(--display);font-weight:700;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pen)}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.8rem,5vw,2.9rem);font-weight:700}
+h2{font-size:clamp(1.25rem,3vw,1.6rem);font-weight:700;margin-top:.9rem!important;padding-top:.9rem;border-top:1px solid var(--line)}
+h3{font-size:1.1rem;font-weight:700}
+.lead{font-size:1.25rem}
+ul,ol{padding-left:1.3rem;display:flex;flex-direction:column;gap:.5rem}
+.small{font-size:.92rem;color:var(--muted)}
+
+.talk{background:var(--tint);border-radius:6px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem}
+.talk h3{color:var(--pen)}
+.talk ul{margin:0}
+
+details.card{border:1px solid var(--line);border-radius:6px;background:var(--sheet)}
+details.card > summary{cursor:pointer;list-style:none;padding:.85rem 1rem;font-family:var(--display);font-weight:700;font-size:1.15rem;display:flex;gap:.75rem;align-items:baseline}
+details.card > summary::-webkit-details-marker{display:none}
+details.card > summary::after{content:"+";margin-left:auto;font-weight:500;color:var(--pen);font-size:1.4rem;line-height:1}
+details.card[open] > summary::after{content:"–"}
+details.card > summary .n{color:var(--pen);font-variant-numeric:tabular-nums}
+.card-body{padding:0 1rem 1rem;display:flex;flex-direction:column;gap:.7rem}
+.card-body > *{margin:0}
+.stack{display:flex;flex-direction:column;gap:.6rem}
+.qs{list-style:none;padding:0;border-left:4px solid var(--mark);padding-left:.9rem}
+
+.source{border:1px solid var(--line);border-left:6px solid var(--ink);border-radius:4px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.7rem;background:var(--bg)}
+.source > *{margin:0}
+.source blockquote{font-family:var(--source);font-style:italic;font-size:1.3rem;line-height:1.5;margin:0}
+.gl{font:inherit;color:inherit;background:var(--mark);color:var(--mark-ink);border:0;border-radius:3px;padding:0 .2em;cursor:pointer;text-decoration:underline dotted;text-underline-offset:.2em}
+.gloss{background:var(--mark);color:var(--mark-ink);border-radius:4px;padding:.5rem .75rem;font-size:1rem}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:4px;padding:.55rem .8rem;font-weight:700;font-size:1rem}
+
+.btn{font:inherit;font-weight:700;background:var(--pen);color:var(--pen-ink);border:0;border-radius:6px;padding:.65rem 1.1rem;cursor:pointer;align-self:flex-start}
+.btn.ghost{background:transparent;color:var(--pen);border:2px solid var(--pen)}
+.reveal{border-left:4px solid var(--pen);padding-left:1rem;display:flex;flex-direction:column;gap:.7rem}
+.reveal > *{margin:0}
+.dialog{display:flex;flex-direction:column;gap:.35rem;font-size:1.1rem}
+.dialog p{margin:0}
+.dialog b{font-family:var(--display);font-size:.85rem;letter-spacing:.08em;margin-right:.4rem}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem}
+.two > div{border:1px solid var(--line);border-radius:6px;padding:1rem;display:flex;flex-direction:column;gap:.7rem;min-width:0}
+.two > div > *{margin:0}
+
+.steps{list-style:none;padding:0;gap:.6rem}
+.steps label{display:flex;gap:.75rem;align-items:flex-start;padding:.7rem .85rem;border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.steps input{width:1.3rem;height:1.3rem;margin-top:.2rem;flex:none;accent-color:var(--pen)}
+.steps input:checked + span{color:var(--muted);text-decoration:line-through}
+
+.form{display:flex;flex-direction:column;gap:1rem}
+.field{display:flex;flex-direction:column;gap:.3rem}
+.field label{font-family:var(--display);font-weight:700}
+.field textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--sheet);border:1px solid var(--muted);border-radius:6px;padding:.6rem .7rem;min-height:4.6rem;resize:vertical;width:100%}
+.field textarea::placeholder{color:var(--muted);opacity:1}
+.row{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+#copyOut{font:inherit;font-size:.95rem;width:100%;min-height:9rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.6rem}
+.control{font-family:var(--display);font-size:clamp(1.3rem,3.5vw,1.8rem);font-weight:700;line-height:1.2;background:var(--mark);color:var(--mark-ink);padding:1rem 1.1rem;border-radius:6px}
+
+.toc{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.5rem}
+.toc a{display:flex;gap:.7rem;align-items:baseline;padding:.7rem .85rem;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink)}
+.toc a b{font-family:var(--display);color:var(--pen);font-variant-numeric:tabular-nums}
+.res{list-style:none;padding:0}
+.res li{border:1px solid var(--line);border-radius:6px;padding:.75rem .9rem;display:flex;flex-direction:column;gap:.15rem}
+.res b{font-family:var(--display)}
+.nav{display:flex;justify-content:space-between;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){.screen{animation:in .18s ease-out}@keyframes in{from{transform:translateY(4px)}to{transform:none}}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <p class="brand">Fuentes históricas en el aula de secundaria <span>· Didáctica de la Historia II / PPD III</span></p>
+    <div class="tabs" role="tablist" aria-label="Pantallas de la clase" id="tabs"></div>
+  </div>
+</header>
+
+<main>
+
+<section class="screen" id="s-inicio" data-tab="Inicio" data-short="Inicio" data-n="">
+  <p class="folio">Unidad 3 · Ciclo 2026</p>
+  <h1>Fuentes históricas en el aula de secundaria</h1>
+  <p class="lead">Cómo se trabajan las fuentes en una clase de historia, y cómo armar una guía de trabajo para sus estudiantes.</p>
+  <h2>Recorrido de hoy</h2>
+  <ol class="toc wide" id="toc"></ol>
+</section>
+
+<section class="screen" id="s-1" data-tab="¿De qué hablamos?" data-short="Qué son" data-n="1" hidden>
+  <p class="folio">Pantalla 1</p>
+  <h1>¿De qué hablamos cuando decimos fuentes históricas?</h1>
+  <p class="lead">Una carta, una foto, un afiche, un objeto, un relato familiar: cualquier huella del pasado puede ser una fuente. Pero ninguna habla sola.</p>
+  <ul>
+    <li><strong>Una fuente se vuelve evidencia cuando le hacemos una pregunta.</strong> La misma carta sirve para responder cosas muy distintas según qué queramos saber.</li>
+    <li><strong>Alguien la produjo, para alguien, con una intención.</strong> No es una ventana al pasado: es la mirada de quien la hizo.</li>
+    <li><strong>También importa lo que calla.</strong> Quién no aparece, qué no se cuenta y por qué.</li>
+  </ul>
+  <div class="talk">
+    <h3>Para conversar</h3>
+    <p>¿Pudieron observar clases en las escuelas asociadas donde se usaran fuentes? ¿Qué les pidieron a los chicos que hicieran con ellas?</p>
+  </div>
+</section>
+
+<section class="screen" id="s-2" data-tab="¿Cómo se trabajan?" data-short="Cómo se trabajan" data-n="2" hidden>
+  <p class="folio">Pantalla 2</p>
+  <h1>¿Cómo se trabajan en un aula de secundaria?</h1>
+  <div class="stack">
+    <details class="card" open>
+      <summary><span class="n">1</span> Contexto primero</summary>
+      <div class="card-body"><p>Antes de leer la fuente, los chicos necesitan saber algo del proceso histórico y de quién la produjo. Sin eso, solo pueden buscar palabras sueltas.</p></div>
+    </details>
+    <details class="card">
+      <summary><span class="n">2</span> Registro inicial</summary>
+      <div class="card-body"><p>Leer, mirar o escuchar con atención. Y volver a hacerlo: releer es parte del trabajo, no una pérdida de tiempo.</p></div>
+    </details>
+    <details class="card">
+      <summary><span class="n">3</span> Preguntas</summary>
+      <div class="card-body">
+        <p>Se conversan en clase; no son un cuestionario para completar en la carpeta.</p>
+        <ul class="qs">
+          <li>¿Cuándo se produjo y en qué circunstancias?</li>
+          <li>¿Quién la elaboró? ¿Qué intereses podía tener?</li>
+          <li>¿A quién le habla?</li>
+          <li>¿Qué tipo de fuente es? Carta, decreto, discurso, noticia, fotografía…</li>
+          <li>¿Qué no dice? ¿Quién no aparece?</li>
+        </ul>
+      </div>
+    </details>
+    <details class="card">
+      <summary><span class="n">4</span> Interpretación</summary>
+      <div class="card-body"><p>Las fuentes son productos culturales. Su significado cambia según quién las lee y desde qué pregunta. Enseñar historia así es ayudar a los chicos a ver que toda fuente fue creada en un contexto y con una intención.</p></div>
+    </details>
+  </div>
+  <h2>Un ejemplo</h2>
+  <p>Presentar dos fuentes sobre un mismo hecho que se contradigan. Analizar quién escribió cada una, con qué propósito y qué diferencias hay en la forma de contar lo que pasó.</p>
+  <p>Trabajemos con las colecciones de la página web del Museo Histórico Nacional. Busquemos ejemplos:</p>
+  <p><a href="https://museohistoriconacional.cultura.gob.ar/noticia/catalogos-del-museo-historico-nacional/" target="_blank" rel="noopener">Abrir los catálogos del Museo Histórico Nacional</a></p>
+  <div class="talk">
+    <h3>Dos puntos de partida para buscar</h3>
+    <ul>
+      <li><strong>El Cabildo abierto del 22 de mayo de 1810, de Pedro Subercaseaux.</strong> Se pintó en 1910, para el Centenario. ¿Es una fuente sobre 1810 o sobre 1910? Compárenla con un testimonio escrito de la época.</li>
+      <li><strong>Las pinturas de Cándido López sobre la Guerra del Paraguay.</strong> Fue soldado y pintó años después lo que había visto. ¿Qué muestra y qué deja afuera? Compárenlas con una fuente escrita del otro bando.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="screen" id="s-3" data-tab="Un caso de aula" data-short="Caso de aula" data-n="3" hidden>
+  <p class="folio">Pantalla 3</p>
+  <h1>Un caso de aula</h1>
+  <p class="lead">Segundo año de una escuela secundaria pública de la Ciudad de Buenos Aires. Noviembre, seis clases de ochenta minutos. Tema: la resistencia de los pueblos de los Valles Calchaquíes a la conquista española.</p>
+  <p>La profesora, Mariela Pica, trabaja una misma carta de dos maneras distintas en dos clases seguidas.</p>
+
+  <h2>La fuente</h2>
+  <p><strong>Carta de la Audiencia de Charcas al rey Felipe II, 1562.</strong> La Real Audiencia de Charcas era el máximo tribunal de la corona española en el virreinato del Perú. La carta cuenta que los calchaquíes cortaron el agua que abastecía el fuerte de Córdoba de Calchaquí, y que entonces los españoles:</p>
+  <div class="source wide">
+    <p class="warn">Aviso: la carta relata muertes y una huida violenta.</p>
+    <blockquote>“una noche determinaron el riesgo de salirse huyendo llevando consigo sus hijos y sus mujeres y siguiéronlos los indios y mataron quince españoles y de treinta y uno que eran y tres mujeres españolas, y muchos <button type="button" class="gl" data-g="Indios criados: indígenas al servicio de los españoles.">indios criados</button> suyos y indias y mestizos prendieron y mataron y algunos por no se detener dejaban caer los hijos de los caballos que fue la mayor lástima del mundo; vinieron diez y seis destrozados con veinte flechazos cada uno que fue milagro escapar vivos y de camino llegando a un pueblo que se dice Nieva y viendo que los indios se querían allí rebelar <button type="button" class="gl" data-g="Despoblar: abandonar un pueblo.">se despobló</button> y <button type="button" class="gl" data-g="Retruxéronse: se retiraron.">retruxéronse</button> a Omaguaca y de allí también se han salido porque se querían rebelar como los demás…”</blockquote>
+    <p class="gloss" id="gloss" role="status">Toquen las palabras resaltadas para ver qué significan.</p>
+    <p class="small">Tomado de Lorandi, A. M., “Las rebeliones indígenas”, en Tandeter (2000), <i>La sociedad colonial</i>, Sudamericana. Citado en Aisenberg, Lewkowicz y Pica (2024).</p>
+  </div>
+
+  <div class="two wide">
+    <div>
+      <h3>Primera clase: con cuestionario</h3>
+      <p>La profesora leyó la carta con el curso y entregó estas preguntas:</p>
+      <ol>
+        <li>¿Quién es el que escribe?</li>
+        <li>¿A quién y con qué objetivo escribe?</li>
+        <li>¿Qué dice de los indígenas?</li>
+        <li>En el hecho que se relata, ¿qué hicieron los españoles y por qué?</li>
+      </ol>
+      <p><strong>Antes de seguir:</strong> ¿qué creen que respondieron los chicos?</p>
+      <button type="button" class="btn" data-reveal="r1" aria-expanded="false">Ver qué pasó</button>
+      <div class="reveal" id="r1" hidden>
+        <p>A la primera pregunta, varios respondieron: Ana María Lorandi. Es la historiadora citada al pie; fue el primer nombre que encontraron.</p>
+        <p>En las respuestas escritas, una alumna puso que el objetivo de la Audiencia era que “el rey se entere qué pasaba”. No está mal, pero no dice nada de lo que la carta cuenta.</p>
+        <p>La propia profesora concluye que las preguntas “no ayudaron y, en algún caso, hasta dificultaron la comprensión de la Carta”.</p>
+      </div>
+    </div>
+    <div>
+      <h3>Segunda clase: análisis compartido</h3>
+      <p>En la clase siguiente, la profesora cambió la propuesta. Mostró un mapa de la zona, volvió a la línea de tiempo que habían armado, explicó qué era la Audiencia y abrió con una pregunta amplia: ¿qué nos dice esta carta sobre la resistencia? Releyeron juntos y fue repreguntando.</p>
+      <button type="button" class="btn" data-reveal="r2" aria-expanded="false">Ver qué pasó</button>
+      <div class="reveal" id="r2" hidden>
+        <div class="dialog">
+          <p><b>DOCENTE</b>¿Quieren quedar bien parados?</p>
+          <p><b>HERNÁN</b>Quieren quedar como víctimas. Como “Ay, nos mataron”.</p>
+          <p><b>MARÍA</b>Y tampoco cuentan el por qué hicieron eso.</p>
+          <p><b>MARCELA</b>Porque querían huir de los tributos, de la mita y todo eso.</p>
+        </div>
+        <p>Los chicos discuten, se interrumpen y llegan a algo que la carta no dice: que sus autores se presentan como víctimas y callan por qué los indígenas atacan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="talk">
+    <h3>Para conversar</h3>
+    <ul>
+      <li>¿Qué hizo distinto la profesora en la segunda clase?</li>
+      <li>¿Qué sabían los chicos que les permitió leer la carta de otra manera?</li>
+      <li>La carta fue escrita por españoles. ¿Cómo llegamos entonces a la voz de los indígenas?</li>
+      <li>¿Usaron cuestionarios parecidos en sus prácticas? ¿Por qué solemos recurrir a ellos?</li>
+    </ul>
+  </div>
+
+  <h2>Lo que deja el caso</h2>
+  <ul>
+    <li>Para analizar una fuente hay que saber: sobre el proceso histórico, sobre el tipo de fuente y sobre quién la produjo.</li>
+    <li>Analizar fuentes no es un agregado: hace avanzar en el conocimiento del tema.</li>
+    <li>Releer y repreguntar, sin dar nada por sentado.</li>
+    <li>Relacionar la fuente con otros materiales: textos, mapas, líneas de tiempo.</li>
+    <li>Reconocer actores con intenciones distintas e inferir la voz de quienes no la tienen.</li>
+  </ul>
+  <p><a href="https://portalrevistas.unipe.edu.ar/index.php/analisispracticas/article/download/280/413/1476" target="_blank" rel="noopener">Leer el artículo completo</a></p>
+</section>
+
+<section class="screen" id="s-4" data-tab="Analizamos fuentes" data-short="Analizamos" data-n="4" hidden>
+  <p class="folio">Pantalla 4</p>
+  <h1>Analizamos fuentes</h1>
+  <h2>Parte A. Entre todos</h2>
+  <p>Vamos a analizar juntos la carta de 1562. Mientras lo hacemos, presten atención a dos cosas a la vez: qué van entendiendo de la carta y qué hace la docente para que el análisis avance.</p>
+  <p>Al terminar, armamos en el pizarrón la lista de esas intervenciones.</p>
+  <p><a href="#s-3" data-go="s-3">Volver a la carta de 1562</a></p>
+
+  <h2>Parte B. En grupos</h2>
+  <p>Buenos Aires, 1907. Los inquilinos de los conventillos dejan de pagar el alquiler y la huelga se extiende por la ciudad. El recurso de educ.ar reúne siete fuentes sobre el conflicto: un texto del médico higienista Eduardo Wilde y notas de <i>La Protesta</i>, <i>La Prensa</i>, <i>El Tiempo</i> y <i>Caras y Caretas</i>.</p>
+  <p><a href="https://www.educ.ar/recursos/91053/las-fuentes-primarias-en-la-reconstruccion-e-interpretacion-" target="_blank" rel="noopener">Abrir las fuentes de la huelga de inquilinos de 1907</a></p>
+  <ol class="steps">
+    <li><label for="st1"><input type="checkbox" id="st1"><span>Elijan dos fuentes que miren el conflicto desde lugares distintos. Por ejemplo, el manifiesto de los inquilinos y la postura de los propietarios.</span></label></li>
+    <li><label for="st2"><input type="checkbox" id="st2"><span>Analícenlas con las preguntas de la pantalla 2.</span></label></li>
+    <li><label for="st3"><input type="checkbox" id="st3"><span>Anoten qué les costó entender y qué necesitaron saber antes. A sus estudiantes les va a pasar lo mismo.</span></label></li>
+    <li><label for="st4"><input type="checkbox" id="st4"><span>Busquen a las mujeres y a los chicos de la huelga. ¿Aparecen? ¿Quién habla por ellos?</span></label></li>
+  </ol>
+</section>
+
+<section class="screen" id="s-5" data-tab="Armamos la guía" data-short="La guía" data-n="5" hidden>
+  <p class="folio">Pantalla 5</p>
+  <h1>Armamos la guía de trabajo</h1>
+  <p class="lead">Con lo que vivieron en la pantalla anterior, armen una guía de trabajo con fuentes para un curso real: el de su escuela asociada o su escenario de práctica.</p>
+  <p>Pueden usar las fuentes de 1907 u otras de su propio tema.</p>
+  <form class="form" id="guia" autocomplete="off">
+    <div class="field"><label for="g1">Curso y tema</label><textarea id="g1" placeholder="¿Para qué año, en qué escuela o escenario, dentro de qué tema?"></textarea></div>
+    <div class="field"><label for="g2">Lo que necesitan saber antes</label><textarea id="g2" placeholder="¿Qué contexto mínimo van a dar y cómo? Un texto breve, un mapa, una línea de tiempo."></textarea></div>
+    <div class="field"><label for="g3">Las fuentes</label><textarea id="g3" placeholder="¿Cuáles? ¿Cómo las recortan y adaptan? ¿Qué palabras llevan glosario? Indiquen siempre de dónde salen."></textarea></div>
+    <div class="field"><label for="g4">Pregunta de entrada</label><textarea id="g4" placeholder="Una pregunta abierta que estas fuentes permitan responder."></textarea></div>
+    <div class="field"><label for="g5">Preguntas para conversar</label><textarea id="g5" placeholder="Tres o cuatro, pensadas para el intercambio en clase. Al menos una sobre lo que la fuente no dice."></textarea></div>
+    <div class="field"><label for="g6">Qué producen los chicos</label><textarea id="g6" placeholder="¿Qué hacen con lo analizado? Explican, comparan, argumentan, reescriben desde otra voz."></textarea></div>
+    <div class="field"><label for="g7">Cómo sé qué entendieron</label><textarea id="g7" placeholder="Una forma sencilla de darse cuenta durante la clase, no solo al final."></textarea></div>
+    <div class="field"><label for="g8">Para que todos puedan</label><textarea id="g8" placeholder="Otra forma de acceder a la fuente: lectura en voz alta, versión más breve, imagen ampliada, trabajo en papel."></textarea></div>
+    <div class="row">
+      <button type="submit" class="btn" id="copyBtn">Copiar mi guía</button>
+      <span id="copyMsg" role="status" class="small"></span>
+    </div>
+    <textarea id="copyOut" readonly hidden aria-label="Texto de la guía para copiar"></textarea>
+    <p class="small">La página no guarda lo que escriben. Copien la guía y péguenla en un documento o en un mensaje antes de cerrar.</p>
+  </form>
+  <h2>Prueba entre grupos</h2>
+  <p>Pásenle su guía a otro grupo. Ellos la leen como si fueran estudiantes de secundaria y les devuelven dos cosas: qué se entiende bien y dónde se trabarían.</p>
+  <h2>Una pregunta de control</h2>
+  <p class="control">¿Esta guía hace pensar con la fuente, o solo buscar respuestas en ella?</p>
+</section>
+
+<section class="screen" id="s-6" data-tab="Pistas" data-short="Pistas" data-n="6" hidden>
+  <p class="folio">Pantalla 6</p>
+  <h1>Pistas para nuestras clases</h1>
+  <div class="stack">
+    <details class="card" open>
+      <summary>Muchas voces, casi siempre mediadas</summary>
+      <div class="card-body">
+        <p>Las fuentes permiten hacer visibles a distintos actores sociales: sectores populares, pueblos indígenas, mujeres. Pero muchas veces sus voces llegan a través de documentos escritos por otros. Esa mediación también se enseña.</p>
+        <p><strong>Actividad sugerida.</strong> Mesa de voces del pasado: cada estudiante toma un actor histórico (una mujer campesina, un soldado, un comerciante, un líder indígena) y busca qué fuentes hablan de él y quién las escribió. En la puesta en común reconstruyen el hecho desde esas miradas y señalan de quién no encontraron nada.</p>
+      </div>
+    </details>
+    <details class="card">
+      <summary>Fuentes y problemas</summary>
+      <div class="card-body">
+        <p>Las fuentes se abordan desde una pregunta que ellas puedan ayudar a responder. Así los estudiantes no solo las leen: las usan para explicar, contrastar y argumentar.</p>
+        <p><strong>Actividad sugerida.</strong> Pregunta guía sobre la Reforma Universitaria de 1918: ¿qué reclamaban los reformistas y a quién le hablaban? Entregar discursos, afiches y artículos de prensa; que elijan las fuentes más útiles y escriban una explicación breve usándolas como evidencia.</p>
+      </div>
+    </details>
+    <details class="card">
+      <summary>Cómo cuenta cada fuente</summary>
+      <div class="card-body">
+        <p>Un texto, una imagen y un relato oral construyen el pasado de maneras distintas. Vale analizar qué destaca cada uno, qué omite y qué efecto produce.</p>
+        <p><strong>Actividad sugerida.</strong> Trabajar una pintura histórica o una fotografía de época: qué se destaca, qué emociones transmite, qué mensaje busca comunicar. Compararla con una fuente escrita sobre el mismo hecho y discutir qué cambia.</p>
+      </div>
+    </details>
+    <details class="card">
+      <summary>Tiempos y memorias</summary>
+      <div class="card-body">
+        <p>El pasado no es lineal ni homogéneo, y se resignifica desde el presente. Memoria e historia no son lo mismo: las fuentes ayudan a ver cómo se relacionan.</p>
+        <p><strong>Actividad sugerida.</strong> Arqueología de la memoria: los estudiantes traen objetos, relatos familiares o documentos vinculados con un hecho histórico, por ejemplo la última dictadura. Quien no pueda o no quiera traer material propio trabaja con fuentes públicas. Analizan qué memorias construyen esos elementos y cómo dialogan con lo que cuenta la historia.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="screen" id="s-7" data-tab="Recursos" data-short="Recursos" data-n="7" hidden>
+  <p class="folio">Pantalla 7</p>
+  <h1>Recursos según el tipo de fuente</h1>
+  <ul class="res">
+    <li><b>Documentos escritos</b><a href="https://www.educ.ar/recursos/91053/las-fuentes-primarias-en-la-reconstruccion-e-interpretacion-" target="_blank" rel="noopener">Las fuentes primarias en la reconstrucción e interpretación de los hechos históricos</a></li>
+    <li><b>Fuentes orales</b><a href="https://www.educ.ar/recursos/93220/la-historia-oral" target="_blank" rel="noopener">La historia oral</a></li>
+    <li><b>Fotografía</b><a href="https://www.educ.ar/recursos/93118/la-fotografia-como-documento-historico" target="_blank" rel="noopener">La fotografía como documento histórico</a></li>
+    <li><b>Pintura histórica y objetos</b><a href="https://museohistoriconacional.cultura.gob.ar/noticia/catalogos-del-museo-historico-nacional/" target="_blank" rel="noopener">Catálogos del Museo Histórico Nacional</a></li>
+  </ul>
+  <h2>Para leer</h2>
+  <p>Aisenberg, B., Lewkowicz, M. y Pica, M. (2024). Diferentes modalidades de trabajo con fuentes primarias en la enseñanza de la historia. Diálogos entre docentes e investigadores en el marco de una investigación colaborativa. <i>Análisis de las Prácticas</i>, (3), 181-204. <a href="https://portalrevistas.unipe.edu.ar/index.php/analisispracticas/article/download/280/413/1476" target="_blank" rel="noopener">Abrir el artículo</a></p>
+</section>
+
+<div class="nav">
+  <button type="button" class="btn ghost" id="prev">Anterior</button>
+  <button type="button" class="btn" id="next">Siguiente</button>
+</div>
+</main>
+
+<script>
+(function(){
+  var screens=[].slice.call(document.querySelectorAll('.screen'));
+  var tabs=document.getElementById('tabs'), toc=document.getElementById('toc');
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  var current=0;
+  screens.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.type='button'; b.className='tab'; b.setAttribute('role','tab'); b.id='t-'+s.id;
+    b.setAttribute('aria-controls',s.id);
+    b.innerHTML='<b aria-hidden="true">'+(s.dataset.n||'\u2302')+'</b><span class="tl">'+s.dataset.short+'</span>'; b.setAttribute('aria-label',(s.dataset.n?s.dataset.n+'. ':'')+s.dataset.tab);
+    b.addEventListener('click',function(){show(i,true)});
+    tabs.appendChild(b);
+    s.setAttribute('role','tabpanel'); s.setAttribute('aria-labelledby',b.id); s.tabIndex=-1;
+    if(i>0){
+      var li=document.createElement('li'), a=document.createElement('a');
+      a.href='#'+s.id; a.innerHTML='<b>'+s.dataset.n+'</b><span>'+s.dataset.tab+'</span>';
+      a.addEventListener('click',function(e){e.preventDefault();show(i,true)});
+      li.appendChild(a); toc.appendChild(li);
+    }
+  });
+  function show(i,move){
+    current=Math.max(0,Math.min(screens.length-1,i));
+    screens.forEach(function(s,j){
+      s.hidden=j!==current;
+      var t=tabs.children[j]; t.setAttribute('aria-selected',j===current?'true':'false');
+    });
+    prev.hidden=current===0; next.hidden=current===screens.length-1;
+    if(move){
+      try{history.replaceState(null,'','#'+screens[current].id)}catch(e){}
+      window.scrollTo(0,0);
+    }
+  }
+  prev.addEventListener('click',function(){show(current-1,true)});
+  next.addEventListener('click',function(){show(current+1,true)});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(a){
+    a.addEventListener('click',function(e){e.preventDefault();
+      var k=screens.findIndex(function(s){return s.id===a.dataset.go}); if(k>-1)show(k,true);});
+  });
+  var start=screens.findIndex(function(s){return '#'+s.id===location.hash});
+  show(start>-1?start:0,false);
+
+  // Botones "Ver qué pasó"
+  [].forEach.call(document.querySelectorAll('[data-reveal]'),function(b){
+    b.addEventListener('click',function(){
+      var box=document.getElementById(b.dataset.reveal), open=box.hidden;
+      box.hidden=!open; b.setAttribute('aria-expanded',open?'true':'false');
+      b.textContent=open?'Ocultar':'Ver qué pasó';
+    });
+  });
+  // Glosario de la carta
+  var gloss=document.getElementById('gloss');
+  [].forEach.call(document.querySelectorAll('.gl'),function(g){
+    g.addEventListener('click',function(){gloss.textContent=g.dataset.g});
+  });
+  // Copiar la guía
+  var form=document.getElementById('guia'), out=document.getElementById('copyOut'), msg=document.getElementById('copyMsg');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var lines=['GUÍA DE TRABAJO CON FUENTES',''];
+    [].forEach.call(form.querySelectorAll('.field'),function(f){
+      lines.push(f.querySelector('label').textContent.toUpperCase());
+      lines.push(f.querySelector('textarea').value.trim()||'(sin completar)');
+      lines.push('');
+    });
+    var text=lines.join('\n');
+    function fallback(){
+      out.value=text; out.hidden=false; out.focus(); out.select();
+      msg.textContent='Seleccionamos el texto: cópienlo desde el recuadro.';
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){msg.textContent='Guía copiada';},fallback);
+    } else { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
